@@ -1,0 +1,41 @@
+﻿-- 非破坏性基础建表脚本；不包含账号密码或演示数据。
+
+IF OBJECT_ID('dbo.Users', 'U') IS NULL
+CREATE TABLE dbo.Users (
+    UserId INT IDENTITY(1,1) PRIMARY KEY,
+    Username NVARCHAR(50) NOT NULL UNIQUE,
+    Email NVARCHAR(100) NOT NULL UNIQUE,
+    PasswordHash NVARCHAR(128) NOT NULL,
+    Salt NVARCHAR(64) NOT NULL,
+    Nickname NVARCHAR(50) NULL,
+    Bio NVARCHAR(500) NULL,
+    Avatar NVARCHAR(200) NULL,
+    CreatedAt DATETIME NOT NULL DEFAULT GETDATE()
+);
+
+IF OBJECT_ID('dbo.Posts', 'U') IS NULL
+CREATE TABLE dbo.Posts (
+    PostId INT IDENTITY(1,1) PRIMARY KEY,
+    UserId INT NOT NULL,
+    Title NVARCHAR(200) NOT NULL,
+    Summary NVARCHAR(500) NULL,
+    Content NVARCHAR(MAX) NULL,
+    Category NVARCHAR(50) NULL,
+    Tags NVARCHAR(200) NULL,
+    LikeCount INT NOT NULL DEFAULT 0,
+    ViewCount INT NOT NULL DEFAULT 0,
+    CreatedAt DATETIME NOT NULL DEFAULT GETDATE(),
+    UpdatedAt DATETIME NULL,
+    CONSTRAINT FK_Posts_Users FOREIGN KEY (UserId) REFERENCES dbo.Users(UserId)
+);
+
+IF OBJECT_ID('dbo.Likes', 'U') IS NULL
+CREATE TABLE dbo.Likes (
+    LikeId INT IDENTITY(1,1) PRIMARY KEY,
+    UserId INT NOT NULL,
+    PostId INT NOT NULL,
+    CreatedAt DATETIME NOT NULL DEFAULT GETDATE(),
+    CONSTRAINT FK_Likes_Users FOREIGN KEY (UserId) REFERENCES dbo.Users(UserId),
+    CONSTRAINT FK_Likes_Posts FOREIGN KEY (PostId) REFERENCES dbo.Posts(PostId),
+    CONSTRAINT UQ_Likes UNIQUE (UserId, PostId)
+);

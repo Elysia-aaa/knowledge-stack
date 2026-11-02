@@ -1,0 +1,72 @@
+<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.Master.cs" Inherits="WebApplication2.Site" %>
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>我的知识小栈 - 个人博客/笔记管理系统</title>
+    <meta name="theme-color" content="#f6f6f4" />
+    <script>window.knowledgeAppearance=<%= AppearanceJson %>;</script>
+    <script src="Scripts/theme-studio.js?v=20261026-studio"></script>
+    <link rel="stylesheet" href="Content/site.css?v=20261026-studio" />
+    <link rel="stylesheet" href="Content/studio.css?v=20261026-real-only" />
+    <script src="Scripts/reading.js?v=20261026" defer></script>
+    <script src="Scripts/site.js?v=20261019-mono2"></script>
+    <script src="Scripts/community.js?v=20261026-studio" defer></script>
+    <script src="Scripts/emoji-picker.js?v=20261019-reactions" defer></script>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <input type="hidden" id="csrfToken" name="csrf" value="<%: CsrfToken %>" />
+        <header class="site-header">
+            <div class="container header-inner">
+                <a class="logo" href="Default.aspx"><span class="brand-mark"><svg class="icon" aria-hidden="true"><use href="Content/icons.svg#stack"></use></svg></span><span>我的知识小栈<small>KNOWLEDGE STACK</small></span></a>
+                <nav class="main-nav" aria-label="主导航">
+                    <a href="Default.aspx">首页</a>
+                    <a href="PostList.aspx">全部文章</a>
+                    <a href="Community.aspx?view=rankings">发现与榜单</a>
+                    <a class="compact-my-posts" href="MyPosts.aspx">我的文章</a>
+                </nav>
+                <div class="header-tools">
+                    <button type="button" id="themeToggle" class="theme-toggle" aria-label="切换到黑色主题" aria-pressed="false"><svg class="icon theme-moon" aria-hidden="true"><use href="Content/icons.svg#moon"></use></svg><svg class="icon theme-sun" aria-hidden="true"><use href="Content/icons.svg#sun"></use></svg><span class="theme-toggle-label">黑色</span></button>
+                    <nav class="account-nav" aria-label="账号导航"><%= GetNavHtml() %></nav>
+                </div>
+            </div>
+        </header>
+
+        <main class="container main site-layout">
+            <aside class="card community-menu">
+                <div class="workspace-heading"><span class="workspace-dot"></span> 我的工作台 <span class="workspace-caption">WORKSPACE</span></div>
+                <nav aria-label="个人与社区导航">
+                    <a href="Community.aspx?view=profile"><svg class="icon" aria-hidden="true"><use href="Content/icons.svg#user"></use></svg>个人主页</a>
+                    <a href="Community.aspx?view=account"><svg class="icon" aria-hidden="true"><use href="Content/icons.svg#settings"></use></svg>资料与密码</a>
+                    <a href="Analytics.aspx"><svg class="icon" aria-hidden="true"><use href="Content/icons.svg#chart"></use></svg>创作数据</a>
+                    <a href="Appearance.aspx"><svg class="icon" aria-hidden="true"><use href="Content/icons.svg#settings"></use></svg>个性化主题</a>
+                    <span class="nav-group-label">内容与连接</span>
+                    <a href="Community.aspx?view=feed"><svg class="icon" aria-hidden="true"><use href="Content/icons.svg#feed"></use></svg>关注动态</a>
+                    <a href="Community.aspx?view=favorites"><svg class="icon" aria-hidden="true"><use href="Content/icons.svg#bookmark"></use></svg>我的收藏</a>
+                    <a href="Community.aspx?view=reposts"><svg class="icon" aria-hidden="true"><use href="Content/icons.svg#share"></use></svg>我的转发</a>
+                    <a href="Community.aspx?view=drafts"><svg class="icon" aria-hidden="true"><use href="Content/icons.svg#edit"></use></svg>草稿箱</a>
+                    <a href="Community.aspx?view=trash"><svg class="icon" aria-hidden="true"><use href="Content/icons.svg#trash"></use></svg>回收站</a>
+                    <span class="nav-group-label">发现与消息</span>
+                    <a href="Community.aspx?view=notifications"><svg class="icon" aria-hidden="true"><use href="Content/icons.svg#bell"></use></svg>通知中心</a>
+                    <a href="Community.aspx?view=history"><svg class="icon" aria-hidden="true"><use href="Content/icons.svg#history"></use></svg>搜索历史</a>
+                    <a href="Community.aspx?view=rankings"><svg class="icon" aria-hidden="true"><use href="Content/icons.svg#trend"></use></svg>发现与榜单</a>
+                    <a href="Community.aspx?view=reports"><svg class="icon" aria-hidden="true"><use href="Content/icons.svg#flag"></use></svg>举报与处理</a>
+                </nav>
+                <div class="sidebar-note"><svg class="icon" aria-hidden="true"><use href="Content/icons.svg#book"></use></svg><span>每一个想法，<br />都值得被记录。</span></div>
+            </aside>
+            <section class="site-content" aria-label="页面内容">
+                <asp:ContentPlaceHolder ID="MainContent" runat="server"></asp:ContentPlaceHolder>
+            </section>
+        </main>
+
+        <footer class="site-footer">
+            <div class="container">
+                <p>我的知识小栈 <span class="footer-separator">/</span> 记录，让知识生长。<span class="footer-tech">ASP.NET WebForms · SQL Server</span></p>
+            </div>
+        </footer>
+    </form>
+</body>
+</html>

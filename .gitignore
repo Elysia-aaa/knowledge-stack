@@ -1,0 +1,44 @@
+# IDE and local machine state
+.vs/
+.vscode/
+.idea/
+.claude/
+.codex/
+*.user
+*.suo
+# Build and package restore
+**/bin/
+**/obj/
+packages/
+node_modules/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+TestResults/
+*.log
+# Business data and backups
+App_Data/
+*.mdf
+*.ldf
+*.ndf
+*.bak
+*.bacpac
+*.db
+*.sqlite*
+*.dump
+# Credentials and local publish profiles
+.env
+.env.*
+!.env.example
+*.local.config
+*.pubxml
+*.publishsettings
+*.pfx
+*.p12
+*.pem
+*.key
+# Local delivery files
+*.zip
+*.7z
+*.pptx
+*.mp4
